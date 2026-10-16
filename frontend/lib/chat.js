@@ -1,4 +1,4 @@
-export const MESSAGE_LIMIT = 5;
+export const MESSAGE_LIMIT = 10;
 export const MESSAGE_MAX_LENGTH = 150;
 export const QUICK_REPLIES = ["I'm here!", 'Running 5 min late', 'See you there!'];
 

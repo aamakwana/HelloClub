@@ -8,7 +8,7 @@ export default function ChatComposer({
   onQuickReply,
 }) {
   return (
-    <form className="mt-6 rounded-2xl bg-white p-4 shadow-sm" onSubmit={onSend}>
+    <form className="mt-3 rounded-2xl bg-white p-4 shadow-sm" onSubmit={onSend}>
       <div className="flex flex-wrap gap-2">
         {QUICK_REPLIES.map(item => (
           <button

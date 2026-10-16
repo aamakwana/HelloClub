@@ -4,7 +4,7 @@ from app.repositories.activity_request_repository import ActivityRequestReposito
 from app.repositories.message_repository import MessageRepository
 from app.schemas.message import NewMessage
 
-MESSAGE_LIMIT = 5
+MESSAGE_LIMIT = 10
 
 
 class MessageService:

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import ChatComposer from '../../../components/ChatComposer';
 import HelloShell from '../../../components/HelloShell';
@@ -20,6 +20,7 @@ export default function PlanChatPage() {
   const [loading, setLoading] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const newestRef = useRef(null);
 
   async function loadChat() {
     setLoading(true);
@@ -46,6 +47,11 @@ export default function PlanChatPage() {
     loadChat();
     return undefined;
   }, [session, profile, planId]);
+
+  useEffect(() => {
+    if (loading) return;
+    newestRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [messages, loading]);
 
   async function send(text) {
     const next = (text || '').trim();
@@ -97,26 +103,39 @@ export default function PlanChatPage() {
             <a className="mt-4 inline-block rounded-xl bg-[#C2410C] px-4 py-3 font-semibold text-white" href="/">Sign in</a>
           </section>
         ) : null}
+        {session && profile && !loading ? (
+          <ul className="mt-6 space-y-3">
+            {messages.map(row => {
+              const mine = row.sender_id === session.user.id;
+              return (
+                <li key={row.id} className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[75%] ${mine ? 'text-right' : 'text-left'}`}>
+                    <p className={`text-sm font-semibold ${mine ? 'text-[#C2410C]' : 'text-[#32251F]'}`}>
+                      {mine ? 'You' : (names[row.sender_id] || 'Member')}
+                      <span className="ml-2 font-normal text-[#6B5348]">{formatOsloTime(row.created_at)}</span>
+                    </p>
+                    <p className={`mt-1 inline-block rounded-[18px] px-4 py-2.5 text-left shadow-sm ${
+                      mine
+                        ? 'bg-[#C2410C] text-white'
+                        : 'bg-white text-[#32251F]'
+                    }`}
+                    >
+                      {row.body}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+            <li ref={newestRef} aria-hidden="true" className="h-px" />
+          </ul>
+        ) : null}
         {session && profile && !loading && messagesLeft != null ? (
           <p role="status" className="mt-5 rounded-xl bg-white p-4 font-semibold text-[#32251F]">
             {messagesLeftLabel(messagesLeft)}
           </p>
         ) : null}
-        {session && profile && !loading ? (
-          <ul className="mt-6 space-y-3">
-            {messages.map(row => (
-              <li key={row.id} className="rounded-2xl bg-white p-4 shadow-sm">
-                <p className="text-sm font-semibold text-[#32251F]">
-                  {names[row.sender_id] || (row.sender_id === session.user.id ? 'You' : 'Member')}
-                  <span className="ml-2 font-normal text-[#6B5348]">{formatOsloTime(row.created_at)}</span>
-                </p>
-                <p className="mt-2 text-[#32251F]">{row.body}</p>
-              </li>
-            ))}
-          </ul>
-        ) : null}
         {session && profile && !loading && outOfMessages && activity ? (
-          <section className="mt-6 rounded-2xl bg-white p-6 shadow-sm">
+          <section className="mt-3 rounded-2xl bg-white p-6 shadow-sm">
             <p className="font-semibold text-[#32251F]">That&apos;s all your messages - see you there!</p>
             <p className="mt-2 text-[#6B5348]">{formatOslo(activity.starts_at)}</p>
             <p className="mt-1 text-[#6B5348]">{activity.place}</p>
