@@ -48,6 +48,18 @@ export function findPlaceName(placeId) {
   return label || null;
 }
 
+export function findVenueForActivity(activity) {
+  const places = asList(venues);
+  const placeId = activity?.placeId || activity?.place_id;
+  if (placeId) {
+    const byId = places.find(item => matchesId(item, placeId));
+    if (byId) return byId;
+  }
+  const meeting = String(activity?.place || '').trim().toLowerCase();
+  if (!meeting) return null;
+  return places.find(item => placeLabel(item).trim().toLowerCase() === meeting) || null;
+}
+
 export async function resolvePlaceName(placeId) {
   return findPlaceName(placeId);
 }
