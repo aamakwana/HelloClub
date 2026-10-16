@@ -33,6 +33,20 @@ class ActivityRequestRepository:
         )
         return len(response.json())
 
+    async def has_accepted(self, activity_id: str, requester_user_id: str, token: str) -> bool:
+        response = await self._client.request(
+            'GET',
+            '/rest/v1/activity_requests',
+            token,
+            params={
+                'select': 'id',
+                'activity_id': 'eq.' + activity_id,
+                'requester_user_id': 'eq.' + requester_user_id,
+                'status': 'eq.accepted',
+            },
+        )
+        return bool(response.json())
+
     async def list_for_activity_ids(self, activity_ids: list[str], token: str) -> list[dict]:
         if not activity_ids:
             return []

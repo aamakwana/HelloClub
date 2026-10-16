@@ -56,6 +56,8 @@ class SupabaseGateway:
             raise DomainValidationError('This plan has already started')
         if 'only pending' in lowered:
             raise DomainValidationError('Only pending requests can be decided')
+        if 'all your messages' in lowered:
+            raise DomainValidationError("That's all your messages - see you there!")
         raise UpstreamError('Supabase request failed; check project configuration and schema')
 
 

@@ -13,6 +13,16 @@ export function osloDateTimeLocal(date = new Date()) {
   return formatted.replace(' ', 'T').slice(0, 16);
 }
 
+export function formatOsloTime(iso) {
+  if (!iso) return '';
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: OSLO_TIME_ZONE,
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(new Date(iso));
+}
+
 export function formatOslo(iso) {
   if (!iso) return '';
   const text = new Intl.DateTimeFormat('en-GB', {

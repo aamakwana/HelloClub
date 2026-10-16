@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import ChatButton from '../../components/ChatButton';
 import HelloShell from '../../components/HelloShell';
 import { api } from '../../lib/api';
 import { formatOslo } from '../../lib/oslo';
@@ -150,6 +151,9 @@ export default function RequestsPage() {
                       {accepted} of {limit} guests accepted
                     </p>
                     {full ? <p className="mt-2 font-semibold text-[#C2410C]">This activity is full</p> : null}
+                    {group.requests.some(row => row.status === 'accepted') ? (
+                      <ChatButton planId={group.activity?.id || group.requests[0]?.activity_id} />
+                    ) : null}
                     <ul className="mt-4 space-y-3">
                       {group.requests.map(row => (
                         <li key={row.id} className="rounded-xl border border-[#E8D9C8] p-4">
@@ -197,7 +201,10 @@ export default function RequestsPage() {
                   <ActivitySummary activity={row.activity} />
                   <p className="mt-3 text-sm text-[#32251F]">{requestStatusLabel(row.status)}</p>
                   {row.status === 'accepted' ? (
-                    <p className="mt-2 font-semibold text-[#C2410C]">You’re going!</p>
+                    <>
+                      <p className="mt-2 font-semibold text-[#C2410C]">You’re going!</p>
+                      <ChatButton planId={row.activity_id} />
+                    </>
                   ) : null}
                 </li>
               ))}

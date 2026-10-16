@@ -1,3 +1,4 @@
+import ChatButton from './ChatButton';
 import { audiencePreferenceLabel, guestCapacityLabel } from '../lib/planCapacity';
 import { formatOslo } from '../lib/oslo';
 
@@ -16,6 +17,7 @@ export default function HostedPlanList({ plans, loading }) {
             <p className="mt-1 text-sm text-[#6B5348]">
               {guestCapacityLabel(plan.max_participants)} · {audiencePreferenceLabel(plan.audience_preference)}
             </p>
+            <ChatButton planId={plan.id} />
           </li>
         ))}
       </ul>
