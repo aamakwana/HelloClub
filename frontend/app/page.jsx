@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthForm from '../components/AuthForm';
+import HelloHeader from '../components/HelloHeader';
 import HelloNav from '../components/HelloNav';
 import TaskWorkspace from '../components/TaskWorkspace';
 import { api } from '../lib/api';
@@ -81,6 +82,7 @@ export default function Home() {
   }
   return (
     <div className="hello-app min-h-screen bg-[#FFF8EF] text-[#32251F]">
+      <HelloHeader />
       <main className="hello-app-main mx-auto max-w-3xl px-6 py-16">
         <p className="hello-club-mark">Hello Club</p>
         <h1 className="mt-4 text-4xl font-bold tracking-tight">Tasks</h1>

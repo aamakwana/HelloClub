@@ -17,6 +17,15 @@ class ActivityRepository:
         rows = response.json()
         return rows[0] if rows else None
 
+    async def list_ids_for_host(self, host_user_id: str, token: str) -> list[str]:
+        response = await self._client.request(
+            'GET',
+            '/rest/v1/activities',
+            token,
+            params={'select': 'id', 'host_user_id': 'eq.' + host_user_id},
+        )
+        return [row['id'] for row in response.json()]
+
     async def list_all(self, token: str) -> list[dict]:
         response = await self._client.request(
             'GET',

@@ -11,6 +11,10 @@ class NewActivityRequest(BaseModel):
     activity_id: UUID
 
 
+class RequestDecision(BaseModel):
+    status: Literal['accepted', 'declined']
+
+
 class ActivityRequest(BaseModel):
     id: UUID
     activity_id: UUID

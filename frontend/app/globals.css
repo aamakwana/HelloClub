@@ -89,8 +89,43 @@ button { border-radius: 8px; padding: 10px 16px; background: #243fba; color: whi
   color: #32251F;
   border: 1px solid #E8D9C8;
 }
+.hello-app .hello-request {
+  background: #C2410C;
+  color: white;
+}
+.hello-app .hello-chip {
+  background: #FFF8EF;
+  color: #32251F;
+  border: 1px solid #E8D9C8;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+.hello-app .hello-chip[aria-selected="true"],
+.hello-app .hello-chip[aria-checked="true"] {
+  background: #C2410C;
+  color: white;
+  border-color: #C2410C;
+}
 .hello-app-main {
   padding-bottom: 96px;
+}
+.hello-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 20px 0;
+}
+.hello-header-requests {
+  background: #FFF8EF;
+  color: #C2410C;
+  border: 1px solid #C2410C;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.hello-header-requests[aria-current="page"] {
+  background: #C2410C;
+  color: white;
 }
 .hello-nav {
   position: fixed;

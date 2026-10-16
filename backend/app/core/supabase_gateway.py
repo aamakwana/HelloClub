@@ -1,7 +1,13 @@
 import httpx
 
 from app.core.config import settings
-from app.core.exceptions import AccessDeniedError, ConflictError, ServiceUnavailableError, UpstreamError
+from app.core.exceptions import (
+    AccessDeniedError,
+    ConflictError,
+    DomainValidationError,
+    ServiceUnavailableError,
+    UpstreamError,
+)
 
 
 class SupabaseGateway:
@@ -28,11 +34,29 @@ class SupabaseGateway:
             raise ServiceUnavailableError('Database or authentication service unavailable') from exc
         if result.status_code in (401, 403):
             raise AccessDeniedError('Session expired or access denied')
-        if result.status_code == 409:
+        if not result.is_error:
+            return result
+        payload = {}
+        try:
+            payload = result.json()
+        except ValueError:
+            payload = {}
+        code = str(payload.get('code') or '')
+        message = str(payload.get('message') or '')
+        details = str(payload.get('details') or '')
+        blob = f'{path} {message} {details}'.lower()
+        if result.status_code == 409 or code == '23505':
+            if 'activity_requests' in blob:
+                raise ConflictError('You already requested to join')
             raise ConflictError('This change conflicts with an existing record')
-        if result.is_error:
-            raise UpstreamError('Supabase request failed; check project configuration and schema')
-        return result
+        lowered = message.lower()
+        if 'this activity is full' in lowered or 'full guest list' in lowered:
+            raise DomainValidationError('This activity is full')
+        if 'already started' in lowered:
+            raise DomainValidationError('This plan has already started')
+        if 'only pending' in lowered:
+            raise DomainValidationError('Only pending requests can be decided')
+        raise UpstreamError('Supabase request failed; check project configuration and schema')
 
 
 gateway = SupabaseGateway()

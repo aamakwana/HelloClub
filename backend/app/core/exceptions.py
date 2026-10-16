@@ -24,3 +24,7 @@ class ConflictError(Exception):
 
 class NotFoundError(Exception):
     """The requested resource does not exist or is not visible to this user."""
+
+
+class ForbiddenError(Exception):
+    """The authenticated user is not allowed to perform this action."""
