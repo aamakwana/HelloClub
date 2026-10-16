@@ -106,8 +106,7 @@ export default function RequestsPage() {
   return (
     <HelloShell current="/requests">
       <main className="mx-auto min-h-screen max-w-lg px-5 py-6">
-        <p className="hello-club-mark">Hello Club</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#32251F]">Requests</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-[#32251F]">Requests</h1>
         <p className="mt-3 text-[#6B5348]">Accept people into plans you host, or follow requests you sent.</p>
         <div className="mt-4 flex justify-end">
           <button type="button" className="hello-pass" onClick={loadRequests} disabled={loading || Boolean(busyId)}>

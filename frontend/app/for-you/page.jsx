@@ -89,9 +89,8 @@ export default function ForYouPage() {
   return (
     <HelloShell current="/for-you">
       <main className="hello-for-you mx-auto min-h-screen max-w-lg px-5 py-10">
-        <p className="hello-club-mark">Hello Club</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#32251F]">For You</h1>
-        <p className="mt-3 text-[#6B5348]">Upcoming plans from other people. This is not a personalised ranking yet.</p>
+        <h1 className="text-4xl font-bold tracking-tight text-[#32251F]">For You</h1>
+        <p className="mt-3 text-[#6B5348]">Plans from students near you.</p>
         <div className="mt-6 flex flex-wrap gap-2" role="radiogroup" aria-label="Category">
           {FOR_YOU_CATEGORIES.map(item => (
             <button

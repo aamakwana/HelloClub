@@ -18,8 +18,7 @@ export default function DiscoverPage() {
   return (
     <HelloShell current="/discover">
       <main className="hello-discover mx-auto min-h-screen max-w-lg px-5 py-10">
-        <p className="hello-club-mark">Hello Club</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#32251F]">Places to meet</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-[#32251F]">Places to meet</h1>
         <p className="mt-3 text-[#6B5348]">Find a place. Make a plan.</p>
 
         <label className="relative mt-6 block">

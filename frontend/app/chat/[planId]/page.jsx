@@ -83,8 +83,7 @@ export default function PlanChatPage() {
   return (
     <HelloShell current="/requests">
       <main className="hello-chat mx-auto min-h-screen max-w-lg px-5 py-10">
-        <p className="hello-club-mark">Hello Club</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#32251F]">Chat</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-[#32251F]">Chat</h1>
         {activity ? (
           <>
             <p className="mt-3 font-semibold text-[#32251F]">{activity.title}</p>

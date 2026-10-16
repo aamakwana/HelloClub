@@ -47,8 +47,7 @@ export default function ProfilePage() {
   return (
     <HelloShell current="/profile">
       <main className="mx-auto min-h-screen max-w-lg px-5 py-10">
-        <p className="hello-club-mark">Hello Club</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#32251F]">Profile</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-[#32251F]">Profile</h1>
         <p className="mt-3 text-[#6B5348]">Only you can see these details. Activity cards show your first name to people who are signed in.</p>
         {!ready ? <p className="mt-8 text-[#6B5348]">Loading…</p> : null}
         {ready && !session ? (

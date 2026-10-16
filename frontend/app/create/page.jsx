@@ -130,8 +130,7 @@ function CreatePlanContent() {
 
   return (
     <main className="mx-auto min-h-screen max-w-lg px-5 py-10">
-      <p className="hello-club-mark">Hello Club</p>
-      <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#32251F]">Create a plan</h1>
+      <h1 className="text-4xl font-bold tracking-tight text-[#32251F]">Create a plan</h1>
       <p className="mt-3 text-[#6B5348]">Post something you want to do in Trondheim. Someone new can join you.</p>
       {!ready || (session && !profile && !gateError) ? <p className="mt-8 text-[#6B5348]">Loading…</p> : !session ? (
         <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
