@@ -1,7 +1,7 @@
 export default function AuthForm({ email, password, busy, onEmailChange, onPasswordChange, onSignIn, onSignUp }) {
   return (
     <>
-      <h2 className="text-2xl font-semibold">Your workspace starts here</h2>
+      <h2 className="text-2xl font-semibold text-[#32251F]">Sign in with email</h2>
       <form className="mt-6 space-y-4" onSubmit={e => { e.preventDefault(); onSignIn(); }}>
         <label className="block">Email<input type="email" autoComplete="email" required value={email} onChange={e => onEmailChange(e.target.value)} /></label>
         <label className="block">Password<input type="password" autoComplete="current-password" minLength={8} required value={password} onChange={e => onPasswordChange(e.target.value)} /></label>

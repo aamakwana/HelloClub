@@ -12,3 +12,15 @@ class UpstreamError(Exception):
 
 class TaskNotFoundError(Exception):
     """No matching task for this authenticated user."""
+
+
+class DomainValidationError(Exception):
+    """Business rule failed after request parsing."""
+
+
+class ConflictError(Exception):
+    """The change collides with an existing row, such as a duplicate join request."""
+
+
+class NotFoundError(Exception):
+    """The requested resource does not exist or is not visible to this user."""

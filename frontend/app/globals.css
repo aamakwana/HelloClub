@@ -4,3 +4,121 @@ button { cursor: pointer; }
 button:disabled { opacity: .5; cursor: wait; }
 input { border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; width: 100%; }
 button { border-radius: 8px; padding: 10px 16px; background: #243fba; color: white; }
+.hello-create button[type="submit"],
+.hello-create a.rounded-xl {
+  background: #C2410C;
+  color: white;
+}
+.hello-create .hello-choice {
+  background: #FFF8EF;
+  color: #32251F;
+  border: 1px solid #E8D9C8;
+  border-radius: 999px;
+  padding: 10px 16px;
+}
+.hello-create .hello-choice[aria-checked="true"] {
+  background: #C2410C;
+  color: white;
+  border-color: #C2410C;
+}
+.hello-create .hello-choice:focus-visible {
+  outline: 2px solid #C2410C;
+  outline-offset: 2px;
+}
+.hello-club-mark {
+  font-family: "Snell Roundhand", "Apple Chancery", "Palatino Linotype", cursive;
+  color: #C2410C;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.hello-for-you .hello-chip {
+  background: #FFF8EF;
+  color: #32251F;
+  border: 1px solid #E8D9C8;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+.hello-for-you .hello-chip[aria-checked="true"] {
+  background: #C2410C;
+  color: white;
+  border-color: #C2410C;
+}
+.hello-for-you .hello-pass {
+  background: #FFF8EF;
+  color: #32251F;
+  border: 1px solid #E8D9C8;
+}
+.hello-for-you .hello-request {
+  background: #C2410C;
+  color: white;
+}
+.hello-for-you .hello-chip:focus-visible,
+.hello-for-you .hello-pass:focus-visible,
+.hello-for-you .hello-request:focus-visible {
+  outline: 2px solid #C2410C;
+  outline-offset: 2px;
+}
+.hello-for-you a.rounded-xl,
+.hello-app a.rounded-xl {
+  background: #C2410C;
+  color: white;
+}
+.hello-app .hello-choice {
+  background: #FFF8EF;
+  color: #32251F;
+  border: 1px solid #E8D9C8;
+  border-radius: 999px;
+  padding: 10px 16px;
+}
+.hello-app .hello-choice[aria-checked="true"] {
+  background: #C2410C;
+  color: white;
+  border-color: #C2410C;
+}
+.hello-app .hello-choice:focus-visible,
+.hello-app .hello-pass:focus-visible {
+  outline: 2px solid #C2410C;
+  outline-offset: 2px;
+}
+.hello-app button {
+  background: #C2410C;
+  color: white;
+}
+.hello-app .hello-pass {
+  background: #FFF8EF;
+  color: #32251F;
+  border: 1px solid #E8D9C8;
+}
+.hello-app-main {
+  padding-bottom: 96px;
+}
+.hello-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  background: white;
+  border-top: 1px solid #E8D9C8;
+}
+.hello-nav a {
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  color: #32251F;
+  background: transparent;
+  border-radius: 12px;
+  padding: 12px 8px;
+}
+.hello-nav a[aria-current="page"] {
+  color: #C2410C;
+  background: #FFF8EF;
+}
+.hello-suggest [aria-selected="true"] {
+  background: #FFF8EF;
+  color: #32251F;
+}

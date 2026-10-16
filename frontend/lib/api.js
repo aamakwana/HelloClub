@@ -1,5 +1,13 @@
 import { supabase } from './supabase';
 
+function formatDetail(detail, status) {
+  if (typeof detail === 'string') return detail;
+  if (Array.isArray(detail)) {
+    return detail.map(item => item.msg || 'Invalid input').join(' ');
+  }
+  return `Request failed (${status})`;
+}
+
 export async function api(path, options = {}) {
   const { data, error } = await supabase().auth.getSession();
   if (error || !data.session) throw new Error('Please sign in again.');
@@ -13,7 +21,9 @@ export async function api(path, options = {}) {
   });
   if (!response.ok) {
     const result = await response.json().catch(() => ({}));
-    throw new Error(typeof result.detail === 'string' ? result.detail : `Request failed (${response.status})`);
+    const error = new Error(formatDetail(result.detail, response.status));
+    error.status = response.status;
+    throw error;
   }
   return response.status === 204 ? null : response.json();
 }

@@ -12,6 +12,7 @@ The Model is the SQL schema plus repositories. There is no ORM.
 
 ## 1. Supabase
 Create a project. Run `supabase/migrations/001_create_tasks.sql` once in its SQL editor.
+For Hello Club plans, also run `supabase/migrations/002_create_activities.sql` once.
 Copy the project URL and **publishable** key (legacy anon key also works).
 Never use a service-role or secret key in this starter. Requests preserve each user's JWT so database row-level security applies.
 Enable email/password authentication. Set Auth Site URL to `http://localhost:3000` for development and your frontend domain for deployment. Keep email confirmation enabled; confirm your email and return to sign in. Configure redirect URLs as required by your project's confirmation template.

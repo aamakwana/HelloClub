@@ -1,7 +1,7 @@
 import httpx
 
 from app.core.config import settings
-from app.core.exceptions import AccessDeniedError, ServiceUnavailableError, UpstreamError
+from app.core.exceptions import AccessDeniedError, ConflictError, ServiceUnavailableError, UpstreamError
 
 
 class SupabaseGateway:
@@ -28,6 +28,8 @@ class SupabaseGateway:
             raise ServiceUnavailableError('Database or authentication service unavailable') from exc
         if result.status_code in (401, 403):
             raise AccessDeniedError('Session expired or access denied')
+        if result.status_code == 409:
+            raise ConflictError('This change conflicts with an existing record')
         if result.is_error:
             raise UpstreamError('Supabase request failed; check project configuration and schema')
         return result
