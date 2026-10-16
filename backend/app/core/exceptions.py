@@ -10,10 +10,6 @@ class UpstreamError(Exception):
     """Supabase returned an unexpected error."""
 
 
-class TaskNotFoundError(Exception):
-    """No matching task for this authenticated user."""
-
-
 class DomainValidationError(Exception):
     """Business rule failed after request parsing."""
 
