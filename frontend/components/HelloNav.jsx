@@ -1,6 +1,7 @@
 const ITEMS = [
   { href: '/create', label: 'Create' },
   { href: '/for-you', label: 'For You' },
+  { href: '/discover', label: 'Discover' },
   { href: '/profile', label: 'Profile' },
 ];
 

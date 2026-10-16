@@ -1,0 +1,167 @@
+[
+  {
+    "id": "te-og-kaffehuset",
+    "name": "Te og Kaffehuset",
+    "type": "Café",
+    "area": "Midtbyen · Dronningens gate 30",
+    "description": "Café and tea shop with a broad coffee and tea selection. The reviewer called its cortado the best in town and praised the cheesecake and the tofu and avocado salad. Service was the weak point.",
+    "tags": ["Coffee & tea", "Lunch", "Vegetarian options"],
+    "studentPrice": false,
+    "openingHours": "Mon–Thu 07–19 · Fri 07–20 · Sat 09–20 · Sun 10–18 (as of 9 Oct 2026)",
+    "source": {
+      "kind": "Review",
+      "publishedAt": "2026-10-09",
+      "url": "https://www.adressa.no/restaurantguiden/i/31EkrM/en-av-byens-beste-butikker-er-en-av-byens-beste-spisesteder"
+    }
+  },
+  {
+    "id": "lyche",
+    "name": "Lyche kjøkken og bar",
+    "type": "Restaurant",
+    "area": "Elgeseter",
+    "description": "Described as possibly the city's cheapest place to eat. A four-course meal is under 300 kr for Studentersamfundet members, and one dish at around 100 kr is enough for most.",
+    "tags": ["Student price", "Vegetarian options", "Lively evenings"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  },
+  {
+    "id": "daglig-deig",
+    "name": "Daglig Deig",
+    "type": "Café",
+    "area": "Bakklandet",
+    "description": "Everything here is gluten-free. The reviewer said it set a new standard for gluten-free baking and described the service as warm and genuinely friendly.",
+    "tags": ["Student price", "Gluten-free", "Outdoor seating", "View"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  },
+  {
+    "id": "mat-fra-hagen",
+    "name": "Mat fra Hagen",
+    "type": "Restaurant",
+    "area": "Area not stated in the article",
+    "description": "A champion of green cooking, with good food at a very good price. The reviewer said its falafel may be the best in Trondheim.",
+    "tags": ["Student price", "Vegetarian", "Outdoor seating"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  },
+  {
+    "id": "den-gode-nabo",
+    "name": "Den Gode Nabo",
+    "type": "Pub",
+    "area": "Bakklandet · by Gamle Bybro",
+    "description": "Pub with outdoor seating on a barge by the old bridge. Not the place for food, but praised for its beer, wine by the glass and cocktails, and called the coziest place in town.",
+    "tags": ["Student price", "Outdoor seating", "View"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  },
+  {
+    "id": "ladekaia",
+    "name": "Ladekaia",
+    "type": "Café",
+    "area": "Lade · Leiv Eirikssons vei",
+    "description": "Part of Adresseavisen's burger test in autumn 2025: among the pricier places tested, but with a rich menu, good burgers and especially good dill-seasoned fries.",
+    "tags": ["Student price", "View", "Lively evenings"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  },
+  {
+    "id": "egon-tarnet",
+    "name": "Egon Tårnet",
+    "type": "Restaurant",
+    "area": "Tyholttårnet",
+    "description": "A place you go for the view. In the 2025 burger test it had the most expensive burger by far, but also cheaper options, a big menu and a well-composed burger.",
+    "tags": ["Student price", "View", "Special venue"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  },
+  {
+    "id": "hammerhead",
+    "name": "Hammerhead Taproom",
+    "type": "Pub",
+    "area": "Lower Søndre gate",
+    "description": "Lots of interesting beer on tap. In the 2025 burger test both burger and fries got top marks, and its smash burger was called the best in the city.",
+    "tags": ["Student price", "Lively evenings", "Outdoor seating"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  },
+  {
+    "id": "burger-no",
+    "name": "Burger.no",
+    "type": "Restaurant",
+    "area": "Nedre Bakklandet",
+    "description": "Called Bakklandet's burger gem. The 2025 burger test found very good burgers and fries, a good drinks selection and friendly, efficient service.",
+    "tags": ["Student price", "Quick bite", "Outdoor seating"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  },
+  {
+    "id": "ramp",
+    "name": "Ramp pub & spiseri",
+    "type": "Pub",
+    "area": "Svartlamoen · Strandveien",
+    "description": "Described as the heart of Svartlamoen, with a relaxed atmosphere. Good burger, very good fries and great sauces; you order at the counter and food comes quickly.",
+    "tags": ["Student price", "Lively evenings", "Outdoor seating"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  },
+  {
+    "id": "ox-tap-room",
+    "name": "Øx Tap Room",
+    "type": "Pub",
+    "area": "Midtbyen · entrance from Munkegata",
+    "description": "In the August 2025 pizza test, the reviewers called it the best pizza they had tasted. Good beer selection and a broad menu.",
+    "tags": ["Student price", "Pizza", "Afterwork"],
+    "studentPrice": true,
+    "openingHours": null,
+    "source": {
+      "kind": "Student-price guide",
+      "publishedAt": "2026-10-03",
+      "url": "https://www.adressa.no/restaurantguiden/i/16grxK/skal-du-ut-i-helga-her-er-det-studentrabatt"
+    }
+  }
+]

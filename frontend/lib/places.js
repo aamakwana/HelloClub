@@ -1,3 +1,13 @@
+import venues from '../data/places.json';
+
+export const PLACE_FILTERS = [
+  { id: 'all', label: 'All' },
+  { id: 'Café', label: 'Cafés' },
+  { id: 'Restaurant', label: 'Restaurants' },
+  { id: 'Pub', label: 'Pubs' },
+  { id: 'student', label: 'Student price' },
+];
+
 function asList(data) {
   if (Array.isArray(data)) return data;
   if (Array.isArray(data?.places)) return data.places;
@@ -14,19 +24,30 @@ function matchesId(place, placeId) {
   return candidates.some(value => value != null && String(value) === String(placeId));
 }
 
-export async function resolvePlaceName(placeId) {
+export function listPlaces() {
+  return asList(venues);
+}
+
+export function filterPlaces(places, { query, filter } = {}) {
+  const q = (query || '').trim().toLowerCase();
+  return asList(places).filter(venue => {
+    if (filter === 'student' && !venue.studentPrice) return false;
+    if (filter && filter !== 'all' && filter !== 'student' && venue.type !== filter) return false;
+    if (!q) return true;
+    return [venue.name, venue.area, venue.description, venue.type, ...(venue.tags || [])]
+      .join(' ')
+      .toLowerCase()
+      .includes(q);
+  });
+}
+
+export function findPlaceName(placeId) {
   if (!placeId) return null;
-  const urls = ['/places.json', '/data/places.json'];
-  for (const url of urls) {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) continue;
-      const place = asList(await response.json()).find(item => matchesId(item, placeId));
-      const label = placeLabel(place).trim();
-      if (label) return label;
-    } catch {
-      // Venue data lives with the discover page; skip if it is not here yet.
-    }
-  }
-  return null;
+  const place = asList(venues).find(item => matchesId(item, placeId));
+  const label = placeLabel(place).trim();
+  return label || null;
+}
+
+export async function resolvePlaceName(placeId) {
+  return findPlaceName(placeId);
 }
