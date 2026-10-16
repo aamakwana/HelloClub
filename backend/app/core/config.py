@@ -1,8 +1,11 @@
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load backend/.env even if uvicorn's parent process already exported placeholders.
+_ENV_FILE = Path(__file__).resolve().parents[2] / '.env'
+load_dotenv(_ENV_FILE, override=True)
 
 
 class Settings:
