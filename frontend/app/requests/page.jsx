@@ -13,6 +13,7 @@ import {
   guestLimit,
   requestStatusLabel,
 } from '../../lib/requests';
+import { planStartsInFuture, upcomingPlans, useNow } from '../../lib/planTime';
 import { useHelloGate } from '../../lib/useHelloGate';
 
 function ActivitySummary({ activity, viewerId, showHostUpdate }) {
@@ -38,19 +39,23 @@ export default function RequestsPage() {
   const [busyId, setBusyId] = useState(null);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const now = useNow();
+  const liveActivities = useMemo(() => upcomingPlans(activities, now), [activities, now]);
 
   const hosted = useMemo(
-    () => activities.filter(row => row.host_user_id === session?.user?.id),
-    [activities, session],
+    () => liveActivities.filter(row => row.host_user_id === session?.user?.id),
+    [liveActivities, session],
   );
   const grouped = useMemo(
-    () => groupReceivedByActivity(received, hosted),
-    [received, hosted],
+    () => groupReceivedByActivity(received, hosted).filter(group => planStartsInFuture(group.activity, now)),
+    [received, hosted, now],
   );
   const sentWithActivity = useMemo(() => {
-    const lookup = activityById(activities);
-    return sent.map(row => ({ ...row, activity: lookup[row.activity_id] || null }));
-  }, [sent, activities]);
+    const lookup = activityById(liveActivities);
+    return sent
+      .map(row => ({ ...row, activity: lookup[row.activity_id] || null }))
+      .filter(row => planStartsInFuture(row.activity, now));
+  }, [sent, liveActivities, now]);
 
   async function loadRequests() {
     setLoading(true);

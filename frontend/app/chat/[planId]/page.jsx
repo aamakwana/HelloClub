@@ -8,6 +8,7 @@ import HostUpdateNotice from '../../../components/HostUpdateNotice';
 import { api } from '../../../lib/api';
 import { MESSAGE_MAX_LENGTH, messagesLeftLabel } from '../../../lib/chat';
 import { formatOslo, formatOsloTime } from '../../../lib/oslo';
+import { planStartsInFuture, useNow } from '../../../lib/planTime';
 import { useHelloGate } from '../../../lib/useHelloGate';
 
 export default function PlanChatPage() {
@@ -22,6 +23,8 @@ export default function PlanChatPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const newestRef = useRef(null);
+  const now = useNow();
+  const ended = Boolean(activity) && !planStartsInFuture(activity, now);
 
   async function loadChat() {
     setLoading(true);
@@ -56,7 +59,7 @@ export default function PlanChatPage() {
 
   async function send(text) {
     const next = (text || '').trim();
-    if (!next || busy) return;
+    if (!next || busy || ended) return;
     if (next.length > MESSAGE_MAX_LENGTH) {
       setError('Keep messages to 150 characters');
       return;
@@ -91,6 +94,7 @@ export default function PlanChatPage() {
             <p className="mt-1 text-[#6B5348]">{activity.place}</p>
             <p className="mt-1 text-sm text-[#6B5348]">{formatOslo(activity.starts_at)}</p>
             <HostUpdateNotice activity={activity} viewerId={session?.user?.id} />
+            {ended ? <p className="mt-3 font-semibold text-[#C2410C]">This plan has ended</p> : null}
           </>
         ) : (
           <p className="mt-3 text-[#6B5348]">Arrange the meetup with people on this plan.</p>
@@ -130,19 +134,19 @@ export default function PlanChatPage() {
             <li ref={newestRef} aria-hidden="true" className="h-px" />
           </ul>
         ) : null}
-        {session && profile && !loading && messagesLeft != null ? (
+        {session && profile && !loading && !ended && messagesLeft != null ? (
           <p role="status" className="mt-5 rounded-xl bg-white p-4 font-semibold text-[#32251F]">
             {messagesLeftLabel(messagesLeft)}
           </p>
         ) : null}
-        {session && profile && !loading && outOfMessages && activity ? (
+        {session && profile && !loading && !ended && outOfMessages && activity ? (
           <section className="mt-3 rounded-2xl bg-white p-6 shadow-sm">
             <p className="font-semibold text-[#32251F]">That&apos;s all your messages - see you there!</p>
             <p className="mt-2 text-[#6B5348]">{formatOslo(activity.starts_at)}</p>
             <p className="mt-1 text-[#6B5348]">{activity.place}</p>
           </section>
         ) : null}
-        {session && profile && !loading && !outOfMessages ? (
+        {session && profile && !loading && !ended && !outOfMessages ? (
           <ChatComposer
             body={body}
             busy={busy}

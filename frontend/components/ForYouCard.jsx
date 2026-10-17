@@ -3,10 +3,12 @@ import { audiencePreferenceLabel } from '../lib/planCapacity';
 import { formatOslo } from '../lib/oslo';
 import { upToGuestsLabel } from '../lib/forYou';
 import { findVenueForActivity } from '../lib/places';
+import { planStartsInFuture } from '../lib/planTime';
 
 export default function ForYouCard({ activity, busy, sending, onRequest }) {
   const venue = findVenueForActivity(activity);
   const articleUrl = venue?.source?.url;
+  const ended = !planStartsInFuture(activity);
   return (
     <article className="rounded-2xl bg-white p-6 shadow-sm">
       <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#C2410C]">{activity.category}</p>
@@ -35,14 +37,18 @@ export default function ForYouCard({ activity, busy, sending, onRequest }) {
       <p className="mt-1 text-sm text-[#6B5348]">
         This is the host’s preference. Hello Club does not verify gender, so it is not used to block requests yet.
       </p>
-      <button
-        type="button"
-        className="hello-request mt-6 w-full"
-        onClick={onRequest}
-        disabled={busy}
-      >
-        {sending ? 'Sending…' : 'Request to join'}
-      </button>
+      {ended ? (
+        <p className="mt-6 font-semibold text-[#C2410C]">This plan has ended</p>
+      ) : (
+        <button
+          type="button"
+          className="hello-request mt-6 w-full"
+          onClick={onRequest}
+          disabled={busy}
+        >
+          {sending ? 'Sending…' : 'Request to join'}
+        </button>
+      )}
     </article>
   );
 }

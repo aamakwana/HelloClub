@@ -5,6 +5,7 @@ import ForYouCard from '../../components/ForYouCard';
 import HelloShell from '../../components/HelloShell';
 import { api } from '../../lib/api';
 import { FOR_YOU_CATEGORIES, requestedActivityIds, visibleForYou } from '../../lib/forYou';
+import { planStartsInFuture, useNow } from '../../lib/planTime';
 import { useHelloGate } from '../../lib/useHelloGate';
 
 export default function ForYouPage() {
@@ -17,17 +18,19 @@ export default function ForYouPage() {
   const [busyId, setBusyId] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const now = useNow();
 
   const feed = useMemo(
     () => visibleForYou(activities, {
       userId: session?.user?.id,
       requestedIds: requestedActivityIds(requests),
       category,
+      now,
     }).map(activity => ({
       ...activity,
       hostFirstName: hostNames[activity.host_user_id] || null,
     })),
-    [activities, requests, category, session, hostNames],
+    [activities, requests, category, session, hostNames, now],
   );
 
   async function loadFeed() {
@@ -56,7 +59,7 @@ export default function ForYouPage() {
   }, [session, profile]);
 
   async function requestJoin(activity) {
-    if (!activity || busyId) return;
+    if (!activity || busyId || !planStartsInFuture(activity)) return;
     setError('');
     setMessage('');
     setBusyId(activity.id);

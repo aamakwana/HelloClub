@@ -1,6 +1,12 @@
+from datetime import datetime, timezone
+
 from app.core.supabase_gateway import SupabaseGateway, gateway
 
 ACTIVITY_FIELDS = 'id,host_user_id,title,category,place,starts_at,max_participants,audience_preference,description,details_updated_at,created_at'
+
+
+def _now_utc() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
 
 
 class ActivityRepository:
@@ -22,7 +28,11 @@ class ActivityRepository:
             'GET',
             '/rest/v1/activities',
             token,
-            params={'select': 'id', 'host_user_id': 'eq.' + host_user_id},
+            params={
+                'select': 'id',
+                'host_user_id': 'eq.' + host_user_id,
+                'starts_at': 'gt.' + _now_utc(),
+            },
         )
         return [row['id'] for row in response.json()]
 
@@ -31,7 +41,11 @@ class ActivityRepository:
             'GET',
             '/rest/v1/activities',
             token,
-            params={'select': ACTIVITY_FIELDS, 'order': 'starts_at.asc'},
+            params={
+                'select': ACTIVITY_FIELDS,
+                'starts_at': 'gt.' + _now_utc(),
+                'order': 'starts_at.asc',
+            },
         )
         return response.json()
 
