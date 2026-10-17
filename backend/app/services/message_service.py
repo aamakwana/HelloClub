@@ -38,6 +38,7 @@ class MessageService:
                 'place': activity['place'],
                 'starts_at': activity['starts_at'],
                 'host_user_id': activity['host_user_id'],
+                'details_updated_at': activity.get('details_updated_at'),
             },
             'messages': await self._messages.list_for_plan(plan_id, token),
             'messages_left': max(0, MESSAGE_LIMIT - sent),

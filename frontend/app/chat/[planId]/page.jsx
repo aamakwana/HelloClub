@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import ChatComposer from '../../../components/ChatComposer';
 import HelloShell from '../../../components/HelloShell';
+import HostUpdateNotice from '../../../components/HostUpdateNotice';
 import { api } from '../../../lib/api';
 import { MESSAGE_MAX_LENGTH, messagesLeftLabel } from '../../../lib/chat';
 import { formatOslo, formatOsloTime } from '../../../lib/oslo';
@@ -89,6 +90,7 @@ export default function PlanChatPage() {
             <p className="mt-3 font-semibold text-[#32251F]">{activity.title}</p>
             <p className="mt-1 text-[#6B5348]">{activity.place}</p>
             <p className="mt-1 text-sm text-[#6B5348]">{formatOslo(activity.starts_at)}</p>
+            <HostUpdateNotice activity={activity} viewerId={session?.user?.id} />
           </>
         ) : (
           <p className="mt-3 text-[#6B5348]">Arrange the meetup with people on this plan.</p>

@@ -54,6 +54,12 @@ class SupabaseGateway:
             raise DomainValidationError('This activity is full')
         if 'already started' in lowered:
             raise DomainValidationError('This plan has already started')
+        if 'changes are locked' in lowered:
+            raise DomainValidationError(
+                'Changes are locked 12 hours before the plan, because people have already said yes.'
+            )
+        if 'cannot reduce spaces' in lowered:
+            raise DomainValidationError('Cannot reduce spaces below the number already accepted')
         if 'only pending' in lowered:
             raise DomainValidationError('Only pending requests can be decided')
         if 'all your messages' in lowered:

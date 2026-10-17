@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import ChatButton from '../../components/ChatButton';
 import HelloShell from '../../components/HelloShell';
+import HostUpdateNotice from '../../components/HostUpdateNotice';
 import { api } from '../../lib/api';
 import { formatOslo } from '../../lib/oslo';
 import {
@@ -14,13 +15,14 @@ import {
 } from '../../lib/requests';
 import { useHelloGate } from '../../lib/useHelloGate';
 
-function ActivitySummary({ activity }) {
+function ActivitySummary({ activity, viewerId, showHostUpdate }) {
   if (!activity) return <p className="text-sm text-[#6B5348]">Plan details unavailable.</p>;
   return (
     <>
       <h3 className="text-lg font-semibold text-[#32251F]">{activity.title}</h3>
       <p className="mt-1 text-sm text-[#6B5348]">{activity.place}</p>
       <p className="mt-1 text-sm text-[#6B5348]">{formatOslo(activity.starts_at)}</p>
+      {showHostUpdate ? <HostUpdateNotice activity={activity} viewerId={viewerId} /> : null}
     </>
   );
 }
@@ -145,7 +147,7 @@ export default function RequestsPage() {
                 const full = limit > 0 && accepted >= limit;
                 return (
                   <li key={group.activity?.id || group.requests[0]?.activity_id} className="rounded-2xl bg-white p-6 shadow-sm">
-                    <ActivitySummary activity={group.activity} />
+                    <ActivitySummary activity={group.activity} viewerId={session.user.id} />
                     <p className="mt-2 text-sm text-[#32251F]">
                       {accepted} of {limit} guests accepted
                     </p>
@@ -197,7 +199,11 @@ export default function RequestsPage() {
             <ul className="mt-6 space-y-4">
               {sentWithActivity.map(row => (
                 <li key={row.id} className="rounded-2xl bg-white p-6 shadow-sm">
-                  <ActivitySummary activity={row.activity} />
+                  <ActivitySummary
+                    activity={row.activity}
+                    viewerId={session.user.id}
+                    showHostUpdate={row.status === 'accepted'}
+                  />
                   <p className="mt-3 text-sm text-[#32251F]">{requestStatusLabel(row.status)}</p>
                   {row.status === 'accepted' ? (
                     <>

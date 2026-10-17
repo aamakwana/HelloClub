@@ -66,12 +66,23 @@ function CreatePlanContent() {
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(null);
   const [hosted, setHosted] = useState([]);
+  const [acceptedByPlan, setAcceptedByPlan] = useState({});
 
   async function loadHosted(userId) {
     setLoadingPlans(true);
     try {
-      const rows = await api('/activities');
+      const [rows, received] = await Promise.all([
+        api('/activities'),
+        api('/activity-requests/received'),
+      ]);
       setHosted(rows.filter(row => row.host_user_id === userId));
+      const accepted = {};
+      for (const row of received) {
+        if (row.status === 'accepted') {
+          accepted[row.activity_id] = (accepted[row.activity_id] || 0) + 1;
+        }
+      }
+      setAcceptedByPlan(accepted);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -157,7 +168,12 @@ function CreatePlanContent() {
               {saved.description ? <p className="mt-3 text-[#32251F]">{saved.description}</p> : null}
             </section>
           ) : null}
-          <HostedPlanList plans={hosted} loading={loadingPlans} />
+          <HostedPlanList
+            plans={hosted}
+            loading={loadingPlans}
+            acceptedByPlan={acceptedByPlan}
+            onUpdated={updated => setHosted(old => old.map(plan => (plan.id === updated.id ? updated : plan)))}
+          />
         </>
       ) : null}
       {gateError ? <p role="alert" className="mt-5 rounded-xl bg-white p-4 text-[#C2410C]">{gateError}</p> : null}

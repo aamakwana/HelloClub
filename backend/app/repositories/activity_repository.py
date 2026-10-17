@@ -1,6 +1,6 @@
 from app.core.supabase_gateway import SupabaseGateway, gateway
 
-ACTIVITY_FIELDS = 'id,host_user_id,title,category,place,starts_at,max_participants,audience_preference,description,created_at'
+ACTIVITY_FIELDS = 'id,host_user_id,title,category,place,starts_at,max_participants,audience_preference,description,details_updated_at,created_at'
 
 
 class ActivityRepository:
@@ -45,4 +45,17 @@ class ActivityRepository:
         rows = response.json()
         if not rows:
             raise LookupError('Activity was not returned after insert')
+        return rows[0]
+
+    async def update_for_host(self, activity_id: str, host_user_id: str, payload: dict, token: str) -> dict:
+        response = await self._client.request(
+            'PATCH',
+            '/rest/v1/activities',
+            token,
+            params={'id': 'eq.' + activity_id, 'host_user_id': 'eq.' + host_user_id},
+            json=payload,
+        )
+        rows = response.json()
+        if not rows:
+            raise LookupError('Activity was not updated')
         return rows[0]

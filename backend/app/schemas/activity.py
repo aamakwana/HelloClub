@@ -59,6 +59,30 @@ class NewActivity(BaseModel):
         return value
 
 
+class EditActivity(BaseModel):
+    title: str = Field(min_length=1, max_length=120)
+    place: str = Field(min_length=1, max_length=200)
+    starts_at: datetime
+    max_participants: int = Field(ge=2, le=MAX_TOTAL_PARTICIPANTS)
+
+    @field_validator('title', 'place')
+    @classmethod
+    def clean_required(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError('This field cannot be blank')
+        return value.strip()
+
+    @field_validator('starts_at', mode='before')
+    @classmethod
+    def parse_trondheim_time(cls, value):
+        return NewActivity.parse_trondheim_time(value)
+
+    @field_validator('max_participants')
+    @classmethod
+    def guests_plus_host(cls, value: int) -> int:
+        return NewActivity.guests_plus_host(value)
+
+
 class Activity(BaseModel):
     id: UUID
     host_user_id: UUID
@@ -69,4 +93,5 @@ class Activity(BaseModel):
     max_participants: int
     audience_preference: AudiencePreference = 'everyone'
     description: str | None
+    details_updated_at: datetime | None = None
     created_at: datetime
