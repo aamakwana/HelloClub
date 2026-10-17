@@ -40,20 +40,16 @@ export default function CreatePlanForm({
           className="mt-2 w-full rounded-xl border border-[#E8D9C8] bg-[#FFF8EF] p-3 text-[#32251F]"
         />
       </label>
-      <label className="mt-4 block text-sm font-semibold text-[#32251F]">
-        Category
-        <select
-          required
-          value={values.category}
-          onChange={e => set('category', e.target.value)}
-          className="mt-2 w-full rounded-xl border border-[#E8D9C8] bg-[#FFF8EF] p-3 text-[#32251F]"
-        >
-          <option value="">Choose a category</option>
-          {['Café', 'Study', 'Concert', 'Food', 'Outdoors', 'Party', 'Other'].map(category => (
-            <option key={category} value={category}>{category}</option>
-          ))}
-        </select>
-      </label>
+      <ChoiceGroup
+        legend="Category"
+        name="category"
+        options={['Café', 'Study', 'Concert', 'Food', 'Outdoors', 'Party', 'Other'].map(category => ({
+          id: category,
+          label: category,
+        }))}
+        value={values.category}
+        onChange={id => set('category', id)}
+      />
       <label className="mt-4 block text-sm font-semibold text-[#32251F]">
         Public meeting place
         <input
@@ -65,6 +61,12 @@ export default function CreatePlanForm({
           className="mt-2 w-full rounded-xl border border-[#E8D9C8] bg-[#FFF8EF] p-3 text-[#32251F]"
         />
       </label>
+      <a
+        href="/discover"
+        className="mt-2 inline-block text-sm font-semibold text-[#C2410C] no-underline"
+      >
+        Find a place in Places to meet →
+      </a>
       <label className="mt-4 block text-sm font-semibold text-[#32251F]">
         Date and time
         <span className="mt-1 block font-normal text-sm text-[#6B5348]">Trondheim time (Europe/Oslo)</span>

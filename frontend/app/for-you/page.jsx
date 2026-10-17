@@ -12,10 +12,9 @@ export default function ForYouPage() {
   const [activities, setActivities] = useState([]);
   const [requests, setRequests] = useState([]);
   const [hostNames, setHostNames] = useState({});
-  const [passedIds, setPassedIds] = useState(() => new Set());
   const [category, setCategory] = useState('All');
   const [loading, setLoading] = useState(false);
-  const [busy, setBusy] = useState(false);
+  const [busyId, setBusyId] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
 
@@ -23,15 +22,13 @@ export default function ForYouPage() {
     () => visibleForYou(activities, {
       userId: session?.user?.id,
       requestedIds: requestedActivityIds(requests),
-      passedIds,
       category,
-    }),
-    [activities, requests, passedIds, category, session],
+    }).map(activity => ({
+      ...activity,
+      hostFirstName: hostNames[activity.host_user_id] || null,
+    })),
+    [activities, requests, category, session, hostNames],
   );
-  const current = feed[0] || null;
-  const currentWithHost = current
-    ? { ...current, hostFirstName: hostNames[current.host_user_id] || null }
-    : null;
 
   async function loadFeed() {
     setLoading(true);
@@ -58,29 +55,22 @@ export default function ForYouPage() {
     return undefined;
   }, [session, profile]);
 
-  function passCurrent() {
-    if (!current || busy) return;
+  async function requestJoin(activity) {
+    if (!activity || busyId) return;
     setError('');
     setMessage('');
-    setPassedIds(old => new Set(old).add(current.id));
-  }
-
-  async function requestCurrent() {
-    if (!current || busy) return;
-    setError('');
-    setMessage('');
-    setBusy(true);
+    setBusyId(activity.id);
     try {
       const saved = await api('/activity-requests', {
         method: 'POST',
-        body: JSON.stringify({ activity_id: current.id }),
+        body: JSON.stringify({ activity_id: activity.id }),
       });
       setRequests(old => [saved, ...old]);
       setMessage('Request sent—waiting for the host');
     } catch (e) {
       setError(e.message);
     } finally {
-      setBusy(false);
+      setBusyId('');
     }
   }
 
@@ -114,12 +104,20 @@ export default function ForYouPage() {
             <a className="mt-4 inline-block rounded-xl bg-[#C2410C] px-4 py-3 font-semibold text-white" href="/">Sign in</a>
           </section>
         ) : null}
-        {session && profile && !loading && currentWithHost ? (
-          <div className="mt-8">
-            <ForYouCard activity={currentWithHost} busy={busy} onPass={passCurrent} onRequest={requestCurrent} />
+        {session && profile && !loading && feed.length ? (
+          <div className="mt-8 space-y-4">
+            {feed.map(activity => (
+              <ForYouCard
+                key={activity.id}
+                activity={activity}
+                busy={Boolean(busyId)}
+                sending={busyId === activity.id}
+                onRequest={() => requestJoin(activity)}
+              />
+            ))}
           </div>
         ) : null}
-        {session && profile && !loading && !current && !displayError ? (
+        {session && profile && !loading && !feed.length && !displayError ? (
           <section className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-[#32251F]">No plans found</h2>
             <p className="mt-3 text-[#6B5348]">Try another category, or post something you want to do.</p>

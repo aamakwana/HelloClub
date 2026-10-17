@@ -4,7 +4,7 @@ import { formatOslo } from '../lib/oslo';
 import { upToGuestsLabel } from '../lib/forYou';
 import { findVenueForActivity } from '../lib/places';
 
-export default function ForYouCard({ activity, busy, onPass, onRequest }) {
+export default function ForYouCard({ activity, busy, sending, onRequest }) {
   const venue = findVenueForActivity(activity);
   const articleUrl = venue?.source?.url;
   return (
@@ -35,14 +35,14 @@ export default function ForYouCard({ activity, busy, onPass, onRequest }) {
       <p className="mt-1 text-sm text-[#6B5348]">
         This is the host’s preference. Hello Club does not verify gender, so it is not used to block requests yet.
       </p>
-      <div className="mt-6 grid grid-cols-2 gap-3">
-        <button type="button" className="hello-pass" onClick={onPass} disabled={busy}>
-          Pass
-        </button>
-        <button type="button" className="hello-request" onClick={onRequest} disabled={busy}>
-          {busy ? 'Sending…' : 'Request to join'}
-        </button>
-      </div>
+      <button
+        type="button"
+        className="hello-request mt-6 w-full"
+        onClick={onRequest}
+        disabled={busy}
+      >
+        {sending ? 'Sending…' : 'Request to join'}
+      </button>
     </article>
   );
 }

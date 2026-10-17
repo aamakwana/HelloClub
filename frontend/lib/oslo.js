@@ -13,6 +13,14 @@ export function osloDateTimeLocal(date = new Date()) {
   return formatted.replace(' ', 'T').slice(0, 16);
 }
 
+export function osloTomorrowAt(hour = 18, minute = 0) {
+  const today = osloDateTimeLocal().slice(0, 10);
+  const [year, month, day] = today.split('-').map(Number);
+  const next = new Date(Date.UTC(year, month - 1, day + 1));
+  const ymd = next.toISOString().slice(0, 10);
+  return `${ymd}T${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+}
+
 export function formatOsloTime(iso) {
   if (!iso) return '';
   return new Intl.DateTimeFormat('en-GB', {

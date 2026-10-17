@@ -7,7 +7,7 @@ import HelloShell from '../../components/HelloShell';
 import HostedPlanList from '../../components/HostedPlanList';
 import { api } from '../../lib/api';
 import { useHelloGate } from '../../lib/useHelloGate';
-import { formatOslo, osloDateTimeLocal } from '../../lib/oslo';
+import { formatOslo, osloDateTimeLocal, osloTomorrowAt } from '../../lib/oslo';
 import {
   AUDIENCE_OPTIONS,
   guestCapacityLabel,
@@ -57,8 +57,9 @@ function CreatePlanContent() {
   const searchParams = useSearchParams();
   const placeId = searchParams.get('placeId');
   const minDateTime = useMemo(() => osloDateTimeLocal(new Date(Date.now() + 60_000)), []);
+  const defaultStartsAt = useMemo(() => osloTomorrowAt(18, 0), []);
   const { ready, session, profile, error: gateError } = useHelloGate('app');
-  const [values, setValues] = useState({ ...emptyForm, startsAt: minDateTime });
+  const [values, setValues] = useState({ ...emptyForm, startsAt: defaultStartsAt });
   const [busy, setBusy] = useState(false);
   const [loadingPlans, setLoadingPlans] = useState(false);
   const [message, setMessage] = useState('');
@@ -119,7 +120,7 @@ function CreatePlanContent() {
       });
       setSaved(activity);
       setMessage('Plan saved.');
-      setValues({ ...emptyForm, startsAt: minDateTime });
+      setValues({ ...emptyForm, startsAt: defaultStartsAt });
       await loadHosted(session.user.id);
     } catch (e) {
       setError(e.message);

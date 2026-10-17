@@ -43,17 +43,11 @@ button { border-radius: 8px; padding: 10px 16px; background: #243fba; color: whi
   color: white;
   border-color: #C2410C;
 }
-.hello-for-you .hello-pass {
-  background: #FFF8EF;
-  color: #32251F;
-  border: 1px solid #E8D9C8;
-}
 .hello-for-you .hello-request {
   background: #C2410C;
   color: white;
 }
 .hello-for-you .hello-chip:focus-visible,
-.hello-for-you .hello-pass:focus-visible,
 .hello-for-you .hello-request:focus-visible {
   outline: 2px solid #C2410C;
   outline-offset: 2px;
@@ -107,7 +101,7 @@ button { border-radius: 8px; padding: 10px 16px; background: #243fba; color: whi
   border-color: #C2410C;
 }
 .hello-app-main {
-  padding-bottom: 96px;
+  padding-bottom: 108px;
 }
 .hello-header {
   display: flex;
@@ -141,17 +135,24 @@ button { border-radius: 8px; padding: 10px 16px; background: #243fba; color: whi
   border-top: 1px solid #E8D9C8;
 }
 .hello-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   text-align: center;
   text-decoration: none;
+  font-size: 11px;
   font-weight: 700;
-  color: #32251F;
+  line-height: 1.2;
+  color: #6B5549;
   background: transparent;
-  border-radius: 12px;
-  padding: 12px 8px;
+  border-radius: 0;
+  padding: 6px 4px;
 }
 .hello-nav a[aria-current="page"] {
   color: #C2410C;
-  background: #FFF8EF;
+  background: transparent;
 }
 .hello-suggest [aria-selected="true"] {
   background: #FFF8EF;
